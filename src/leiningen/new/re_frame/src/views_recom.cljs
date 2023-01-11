@@ -3,11 +3,11 @@
    [re-frame.core :as re-frame]
    [re-com.core :as re-com :refer [at]]{{#breaking-point?}}
    [breaking-point.core :as bp]{{/breaking-point?}}{{#re-pressed?}}
-   [re-pressed.core :as rp]
-   [{{ns-name}}.events :as events]{{/re-pressed?}}{{#garden?}}
+   [re-pressed.core :as rp]{{/re-pressed?}}{{#garden?}}
    [{{ns-name}}.styles :as styles]{{/garden?}}{{#git-inject?}}
    [{{ns-name}}.config :as config]{{/git-inject?}}
    [{{ns-name}}.subs :as subs]
+   [{{ns-name}}.events :as events]
    ))
 
 {{#re-pressed?}}
