@@ -8,10 +8,11 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/day8/re-frame-template?style=for-the-badge&logo=github)](https://github.com/day8/re-frame-template/issues)
 [![GitHub](https://img.shields.io/github/license/day8/re-frame-template?style=for-the-badge)](https://github.com/day8/re-frame-template/blob/master/LICENSE)
 
-# re-frame-template
+# Real Time Frontend Template
 
-This is a `Leiningen` template for creating a [re-frame](https://github.com/day8/re-frame) application scaffold (client only)
-with a [shadow-cljs](https://shadow-cljs.github.io/docs/UsersGuide.html) build.  
+This is a `Leiningen` template for creating a real-time application.
+To create the backend, use the [real-time-backend template](https://github.com/DaveWM/real-time-backend).
+It is based on the [re-frame template](https://github.com/day8/re-frame-template).
 It will take you 60 seconds to create your first re-frame app and start to edit it.
 
 
