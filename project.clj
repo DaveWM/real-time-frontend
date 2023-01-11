@@ -1,4 +1,4 @@
-(defproject re-frame/lein-template "lein-git-inject/version"
+(defproject real-time-frontend/lein-template "lein-git-inject/version"
   :description "Leiningen template for a Reagent web app that implements the re-frame pattern."
   :url "https://github.com/day8/re-frame-template"
   :license {:name "MIT"}

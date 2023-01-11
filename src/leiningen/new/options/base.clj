@@ -13,4 +13,8 @@
    ["src/{{sanitized}}/config.cljs" (helpers/render "src/config.cljs" data)]
    ["src/{{sanitized}}/db.cljs" (helpers/render "src/db.cljs" data)]
    ["src/{{sanitized}}/subs.cljs" (helpers/render "src/subs.cljs" data)]
-   ["src/{{sanitized}}/events.cljs" (helpers/render "src/events.cljs" data)]])
+   ["src/{{sanitized}}/events.cljs" (helpers/render "src/events.cljs" data)]
+   ["src/{{sanitized}}/fx.cljs" (helpers/render "src/fx.cljs" data)]
+   ["src/{{sanitized}}/cofx.cljs" (helpers/render "src/cofx.cljs" data)]
+   ["src/{{sanitized}}/auth.cljs" (helpers/render "src/auth.cljs" data)]
+   ["src/{{sanitized}}/socket.cljs" (helpers/render "src/socket.cljs" data)]])

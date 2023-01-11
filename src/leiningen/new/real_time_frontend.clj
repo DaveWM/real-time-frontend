@@ -1,4 +1,4 @@
-(ns leiningen.new.re-frame
+(ns leiningen.new.real-time-frontend
   (:require
    [leiningen.core.main :as main]
    [leiningen.new.options.base :as base]
@@ -122,9 +122,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Main
 
-(defn re-frame [name & options]
+(defn real-time-frontend [name & options]
   (let [data (template-data name options)]
     (check-options options)
-    (main/info "Generating re-frame project.")
+    (main/info "Generating real-time-frontend project.")
     (apply ->files data
            (app-files data options))))

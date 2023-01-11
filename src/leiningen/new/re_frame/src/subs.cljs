@@ -20,3 +20,13 @@
  (fn [db _]
    (:re-pressed-example db)))
 {{/re-pressed?}}
+
+(re-frame/reg-sub
+ ::counter
+ (fn [db _]
+   (:counter db)))
+
+(re-frame/reg-sub
+ ::socket-connected?
+ (fn [db _]
+   (:socket-connected? db)))

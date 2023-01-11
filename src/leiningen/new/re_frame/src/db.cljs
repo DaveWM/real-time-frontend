@@ -1,4 +1,5 @@
 (ns {{ns-name}}.db)
 
 (def default-db
-  {:name "re-frame"})
+  {:name "Real-time re-frame"
+   :socket-open? false})

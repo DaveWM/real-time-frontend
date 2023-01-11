@@ -4,6 +4,7 @@
    [re-pressed.core :as rp]{{/re-pressed?}}
    [{{ns-name}}.db :as db]{{#10x?}}
    [day8.re-frame.tracing :refer-macros [fn-traced]]{{/10x?}}
+   [{{ns-name}}.cofx :as cofx]
    ))
 
 (re-frame/reg-event-db
@@ -40,3 +41,46 @@
  (fn [db [_ value]]
    (assoc db :re-pressed-example value)))
 {{/re-pressed?}}
+
+(defmulti update-db (fn [_ {[sub-type] :sub}] sub-type))
+
+(defmethod update-db :counter [db {counter :data}]
+  (assoc db :counter (:counter/value counter)))
+
+(defmethod update-db :default [_ _] nil)
+
+(re-frame/reg-event-db
+  :server/push
+  ({{^10x?}}fn{{/10x?}}{{#10x?}}fn-traced{{/10x?}} [db [_ evt]]
+    (update-db db evt)))
+
+(re-frame/reg-event-db
+  ::counter-received
+  ({{^10x?}}fn{{/10x?}}{{#10x?}}fn-traced{{/10x?}} [db [_ {counter :data}]]
+   (assoc db :counter (:counter/value counter))))
+
+(re-frame/reg-event-fx
+  ::increment-counter
+  ({{^10x?}}fn{{/10x?}}{{#10x?}}fn-traced{{/10x?}} [{:keys [db]} _]
+    {:db                db
+     :socket/send-event {:event :counter/increment}}))
+
+(re-frame/reg-event-fx
+  ::decrement-counter
+  ({{^10x?}}fn{{/10x?}}{{#10x?}}fn-traced{{/10x?}} [{:keys [db]} _]
+    {:db                db
+     :socket/send-event {:event :counter/decrement}}))
+
+(re-frame/reg-event-fx
+  ::socket-open
+  [(re-frame/inject-cofx ::cofx/user-token)]
+  ({{^10x?}}fn{{/10x?}}{{#10x?}}fn-traced{{/10x?}} [{:keys [db user-token] :as xs} [_ active-page params]]
+    (merge-with concat
+                {:db (assoc db :socket-connected? true)}
+                {:socket/subscribe [{:sub [:counter]
+                                     :on-complete ::counter-received}]})))
+
+(re-frame/reg-event-fx
+  ::socket-closed
+  ({{^10x?}}fn{{/10x?}}{{#10x?}}fn-traced{{/10x?}} [{:keys [db]} _]
+    {:db (assoc db :socket-connected? false)}))

@@ -34,7 +34,9 @@
 
 {{/re-pressed?}}
 (defn home-panel []
-  (let [name (re-frame/subscribe [::subs/name])]
+  (let [name (re-frame/subscribe [::subs/name])
+        counter (re-frame/subscribe [::subs/counter])
+        connected? (re-frame/subscribe [::subs/socket-connected?])]
     [:div
      [:h1{{#garden?}}
       {:class (styles/level1)}{{/garden?}}
@@ -42,8 +44,18 @@
 
      [:div
       [:a {:on-click #(re-frame/dispatch [::events/navigate :about])}
-       "go to About Page"]]{{#re-pressed?}}
+       "go to About Page"]]
 
+     (if @connected?
+       [:div
+        [:p "Counter Value is: " @counter]
+        [:button {:on-click #(re-frame/dispatch [::events/increment-counter])}
+         "Increment"]
+        [:button {:on-click #(re-frame/dispatch [::events/decrement-counter])}
+         "Decrement"]]
+       [:p "Connecting, make sure the backend is running"])
+
+     {{#re-pressed?}}
      [display-re-pressed-example]{{/re-pressed?}}{{#breaking-point?}}
      [:div
       [:h3 (str "screen-width: " @(re-frame/subscribe [::bp/screen-width]))]

@@ -30,6 +30,21 @@
         :body       rpe])]))
 
 {{/re-pressed?}}
+
+(defn display-real-time-example []
+  (let [counter (re-frame/subscribe [::subs/counter])
+        connected? (re-frame/subscribe [::subs/socket-connected?])]
+    (if @connected?
+      [:div
+       [:p "Counter Value is: " @counter]
+       [re-com/button
+        :on-click #(re-frame/dispatch [::events/increment-counter])
+        :label "Increment"]
+       [re-com/button
+        :on-click #(re-frame/dispatch [::events/decrement-counter])
+        :label "Decrement"]]
+      [:p "Connecting, make sure the backend is running"])))
+
 (defn home-title []
   (let [name (re-frame/subscribe [::subs/name])]
     [re-com/title
@@ -50,7 +65,8 @@
    :gap      "1em"
    :children [[home-title]
               [link-to-about-page]{{#re-pressed?}}
-              [display-re-pressed-example]{{/re-pressed?}}{{#breaking-point?}}
+              [display-re-pressed-example]{{/re-pressed?}}
+              [display-real-time-example]{{#breaking-point?}}
               [:div
                [:h3 (str "screen-width: " @(re-frame/subscribe [::bp/screen-width]))]
                [:h3 (str "screen: " @(re-frame/subscribe [::bp/screen]))]]{{/breaking-point?}}]])

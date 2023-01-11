@@ -8,6 +8,9 @@
    [{{ns-name}}.routes :as routes]{{/routes?}}
    [{{ns-name}}.views :as views]
    [{{ns-name}}.config :as config]
+   [{{ns-name}}.fx :as fx]
+   [{{ns-name}}.cofx :as cofx]
+   [{{ns-name}}.socket :as socket]
    ))
 
 
@@ -23,6 +26,7 @@
 
 (defn init []{{#routes?}}
   (routes/start!){{/routes?}}
+  (socket/start-event-loop!)
   (re-frame/dispatch-sync [::events/initialize-db]){{#re-pressed?}}
   (re-frame/dispatch-sync [::rp/add-keyboard-event-listener "keydown"]){{/re-pressed?}}{{#breaking-point?}}
   (re-frame/dispatch-sync [::bp/set-breakpoints

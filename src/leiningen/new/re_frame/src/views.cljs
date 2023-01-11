@@ -2,10 +2,10 @@
   (:require
    [re-frame.core :as re-frame]{{#breaking-point?}}
    [breaking-point.core :as bp]{{/breaking-point?}}{{#re-pressed?}}
-   [re-pressed.core :as rp]
-   [{{ns-name}}.events :as events]{{/re-pressed?}}{{#garden?}}
+   [re-pressed.core :as rp]{{/re-pressed?}}{{#garden?}}
    [{{ns-name}}.styles :as styles]{{/garden?}}
-   [{{ns-name}}.subs :as subs]{{#git-inject?}}
+   [{{ns-name}}.subs :as subs]
+   [{{ns-name}}.events :as events]{{#git-inject?}}
    [{{ns-name}}.config :as config]{{/git-inject?}}
    ))
 
@@ -57,12 +57,22 @@
 
 {{/re-pressed?}}
 (defn main-panel []
-  (let [name (re-frame/subscribe [::subs/name])]
+  (let [name (re-frame/subscribe [::subs/name])
+        counter (re-frame/subscribe [::subs/counter])
+        connected? (re-frame/subscribe [::subs/socket-connected?])]
     [:div
      [:h1{{#garden?}}
       {:class (styles/level1)}{{/garden?}}
-      "Hello from " @name{{#git-inject?}}". Version " config/version{{/git-inject?}}]{{#re-pressed?}}
-     [display-re-pressed-example]{{/re-pressed?}}{{#breaking-point?}}
+      "Hello from " @name{{#git-inject?}}". Version " config/version{{/git-inject?}}]
+     (if @connected?
+       [:div
+        [:p "Counter Value is: " @counter]
+        [:button {:on-click #(re-frame/dispatch [::events/increment-counter])}
+         "Increment"]
+        [:button {:on-click #(re-frame/dispatch [::events/decrement-counter])}
+         "Decrement"]]
+       [:p "Connecting, make sure the backend is running"])
+     {{#re-pressed?}}[display-re-pressed-example]{{/re-pressed?}}{{#breaking-point?}}
      [:div
       [:h3 (str "screen-width: " @(re-frame/subscribe [::bp/screen-width]))]
       [:h3 (str "screen: " @(re-frame/subscribe [::bp/screen]))]]{{/breaking-point?}}
