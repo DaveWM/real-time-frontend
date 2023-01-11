@@ -35,7 +35,7 @@ The base template includes:
 
 To create an application with just the base template, use this commandline:
 ```sh
-$ lein new real-time-frontend <app-name>
+$ lein new io.github.davewm/real-time-frontend <app-name>
 ```
 When using this command, you'll need to substitute in your own `<app-name>` - perhaps `my-killer-app` or `an-early-masterpiece`.
 
@@ -66,14 +66,14 @@ The following "extras" can be nominated on the commandline when you create the t
 To add an `extra` to the base template, append its name to the commandline, with a leading `+`. Here's an example of adding `re-com`:
 
 ```
-lein new real-time-frontend <app-name> +re-com
+lein new io.github.davewm/real-time-frontend <app-name> +re-com
 ```
 Note: it is `+re-com`, not just `re-com`.
 
 Any combination of `extras` can be added at once:
 
 ```
-lein new real-time-frontend <app-name> +garden +re-com +routes +test +10x
+lein new io.github.davewm/real-time-frontend <app-name> +garden +re-com +routes +test +10x
 ```
 
 >  Note: to assist debugging, you'll want to include either `+10x` or `+re-frisk`
